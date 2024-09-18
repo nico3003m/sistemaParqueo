@@ -100,8 +100,20 @@
                 <p><button type="submit" name="action" value="showList">Mostrar Lista</button></p>
             </form>
         </div> 
+        <div>
+            <h1>Actualizar datos de los vehiculos </h1>
+            <form action="editarReserva.jsp" method="POST">
 
-        <p>Actualizar datos de los vehiculos </p>
+                
+                <input type="submit" value="Actualizar" name="actualizar" />
+
+
+            </form>
+        </div>
+            <div> 
+                
+            
+            </div>
         <p>Cerrar Operación</p>
     </body>
 </html>
