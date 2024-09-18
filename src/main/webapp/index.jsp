@@ -104,16 +104,26 @@
             <h1>Actualizar datos de los vehiculos </h1>
             <form action="editarReserva.jsp" method="POST">
 
-                
+
                 <input type="submit" value="Actualizar" name="actualizar" />
 
 
             </form>
         </div>
-            <div> 
-                
-            
-            </div>
-        <p>Cerrar Operación</p>
+        <div> 
+            <!-- Añade esto en index.jsp -->
+            <form action="sacarVehiculo.jsp" method="GET">
+                <button type="submit">Sacar Vehículo</button>
+            </form>
+
+        </div>
+        <div>
+            <p>Cerrar Operación</p>
+            <!-- Añade esto en index.jsp -->
+            <form action="cerrarParqueadero.jsp" method="GET">
+                <button type="submit">Cerrar Parqueadero</button>
+            </form>
+        </div>
+
     </body>
 </html>

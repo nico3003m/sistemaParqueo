@@ -68,7 +68,7 @@ public class svRegistroVehiculo extends HttpServlet {
             request.getRequestDispatcher("index.jsp").forward(request, response);
         }
 
-        System.out.println("datos:" + placa + tipo + esHibrido + ingreso + plazaAsignada);
+        System.out.println("datos:" + ingreso );
         Vehiculo vehiculo = new Vehiculo(placa, tipo, esHibrido, ingreso, plazaAsignada);
 
         if (tipo == TipoVehiculo.MOTOCICLETA) {

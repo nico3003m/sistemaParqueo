@@ -24,17 +24,22 @@ public class Vehiculo {
     public Vehiculo() {
     }
 
-    public double costos() {
-        double tarifa = (tipo == TipoVehiculo.MOTOCICLETA) ? 62 : 120;
-        long horas = Duration.between(ingreso, salida).toHours();
-        double costoTotal = tarifa * horas;
-        
-        if (esHibirdo) {
-            costoTotal *= 0.75;
-        }
-        return costoTotal;
-
+   public double costos() {
+    if (ingreso == null || salida == null) {
+        return 0;
     }
+
+    double tarifa = (tipo == TipoVehiculo.MOTOCICLETA) ? 62 : 120;
+    long horas = Duration.between(ingreso, salida).toHours();
+    double costoTotal = tarifa * horas;
+
+    if (esHibirdo) {
+        costoTotal *= 0.75;
+    }
+
+    return costoTotal;
+}
+
 
     public String getPlaca() {
         return placa;
