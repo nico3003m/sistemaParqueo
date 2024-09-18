@@ -4,6 +4,9 @@
     Author     : Nicolas Moreno
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="java.util.List"%>
+<%@page import="clases.Vehiculo"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -33,10 +36,70 @@
         </form>
         <h3>Que accion quiere hacer ?</h3>
 
-        <form action="svListaParqueo" action="POST">
-            <p>Revisar vehiculos ingresados</p>
-            <input type="submit" value="Registrar" name="lista" />
-        </form>
+        <div class="contenedor">
+            <h1>Mostrar lista de reservas</h1>
+
+            <h2>Reservas disponibles para motos</h2>
+            <%
+                List<Vehiculo> listaMotocilclista = (List<Vehiculo>) session.getAttribute("listaMotocicletas");
+                if (listaMotocilclista != null && !listaMotocilclista.isEmpty()) {
+                    for (Vehiculo reservaMotos : listaMotocilclista) {
+            %>
+            <form action="svEliminar" method="POST">
+                <div class="contenedorDelete">
+                    <p>Placa: <%= reservaMotos.getPlaca()%></p>
+                    <p>Tipo: <%= reservaMotos.getTipo()%></p>
+                    <p>Fecha ingreso: <%= reservaMotos.getIngreso()%></p>
+                </div>
+                <div>
+                    <p><button type="submit" class="buttonDelete">Eliminar</button></p>
+                    <input type="hidden" name="placa" value="<%= reservaMotos.getPlaca()%>">
+                    <input type="hidden" name="tipo" value="<%= reservaMotos.getTipo()%>">
+                    <hr>
+                </div>
+            </form>
+            <%
+                }
+            } else {
+            %>
+            <h3>No hay reservas disponibles.</h3>
+            <%
+                }
+            %>
+
+            <h2>Reservas disponibles para vehículos ligeros</h2>
+            <%
+                List<Vehiculo> vehiculosLigeros = (List<Vehiculo>) session.getAttribute("vehiculosLigeros");
+                if (vehiculosLigeros != null && !vehiculosLigeros.isEmpty()) {
+                    for (Vehiculo reservaVehiculosLigeros : vehiculosLigeros) {
+            %>
+            <form action="svEliminar" method="POST">
+                <div class="contenedorDelete">
+                    <p>Placa: <%= reservaVehiculosLigeros.getPlaca()%></p>
+                    <p>Tipo: <%= reservaVehiculosLigeros.getTipo()%></p>
+                    <p>Fecha ingreso: <%= reservaVehiculosLigeros.getIngreso()%></p>
+                </div>
+                <div>
+                    <p><button type="submit" class="buttonDelete">Eliminar</button></p>
+                    <input type="hidden" name="placa" value="<%= reservaVehiculosLigeros.getPlaca()%>">
+                    <input type="hidden" name="tipo" value="<%= reservaVehiculosLigeros.getTipo()%>">
+                    <hr>
+                </div>
+            </form>
+            <%
+                }
+            } else {
+            %>
+            <h3>No hay reservas disponibles.</h3>
+            <%
+                }
+            %>
+
+            <!-- Formulario para mostrar la lista de reservas -->
+            <form action="svListaParqueo" method="POST">
+                <p><button type="submit" name="action" value="showList">Mostrar Lista</button></p>
+            </form>
+        </div> 
 
         <p>Actualizar datos de los vehiculos </p>
         <p>Cerrar Operación</p>
