@@ -37,7 +37,7 @@
                     </select>
                 </p>
                 <p><label>Plaza Asignada</label><br>
-                    <select name="hibrido" required>
+                    <select name="plaza" required>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -137,9 +137,9 @@
 
         </div>
         <div class="contenedor">
-            <p>Cerrar Operación</p>
+            <h1>Cerrar Operación</h1>
             <!-- Añade esto en index.jsp -->
-            <form action="cerrarParqueadero.jsp" method="GET">
+            <form action="svCerrarOperacion" method="POST">
                 <button type="submit">Cerrar Parqueadero</button>
             </form>
         </div>

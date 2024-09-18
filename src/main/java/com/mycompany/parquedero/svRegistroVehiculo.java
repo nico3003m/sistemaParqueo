@@ -61,19 +61,20 @@ public class svRegistroVehiculo extends HttpServlet {
         TipoVehiculo tipo = TipoVehiculo.valueOf(request.getParameter("tipo"));
         boolean esHibrido = Boolean.parseBoolean(request.getParameter("hibrido"));
         LocalDateTime ingreso = LocalDateTime.now();
+
         int plazaAsignada;
-        System.out.println("validacion de simpre mayusculas" + placa);
-        // Validar que la plaza asignada es un número
         try {
             plazaAsignada = Integer.parseInt(request.getParameter("plaza"));
         } catch (NumberFormatException e) {
-            plazaAsignada = 0; // Asignar un valor por defecto si la conversión falla
+            request.setAttribute("infomacion", "Número de plaza inválido");
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+            return;
         }
 
         if (placa.isEmpty() || plazaAsignada < 1) {
             request.setAttribute("infomacion", "Ingrese toda la información");
             request.getRequestDispatcher("index.jsp").forward(request, response);
-            return; // Terminar el procesamiento aquí
+            return;
         }
 
         Vehiculo vehiculo = new Vehiculo(placa, tipo, esHibrido, ingreso, plazaAsignada);
@@ -85,7 +86,7 @@ public class svRegistroVehiculo extends HttpServlet {
                 session.setAttribute("listaMotocicletas", motocicletas);
                 request.setAttribute("infomacion", "Ingresó correctamente la reserva");
                 request.getRequestDispatcher("index.jsp").forward(request, response);
-                return; // Terminar el procesamiento aquí
+                return;
             }
         } else if (tipo == TipoVehiculo.VEHICULO_LIGERO) {
             if (countplazasVehiculos <= plazasVehiculos) {
@@ -94,7 +95,7 @@ public class svRegistroVehiculo extends HttpServlet {
                 session.setAttribute("vehiculosLigeros", vehiculosLigeros);
                 request.setAttribute("infomacion", "Ingreso correctamente la reserva");
                 request.getRequestDispatcher("index.jsp").forward(request, response);
-                return; // Terminar el procesamiento aquí
+                return;
             }
         }
 
