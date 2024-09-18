@@ -12,29 +12,47 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <link rel="stylesheet" href="style.css">
+        <title>Parking</title>
     </head>
     <body>
-        <h1>Parqueo automotor</h1>
+        <div class="encabezado">
+            <h1>Parqueo automotor</h1>
+            <h2>Bienenido Juan Rodriguez </h2>
+        </div>
+        <div class="contenedor">
+            <form action="svRegistroVehiculo" method="POST">
+                <h1><b>Ingresar vehículo</b></h1>
+                <p><label>Placa</label><br> <input name="placa" minlength="6" required></p>
+                <p><label>Tipo de vehículo</label><br>
+                    <select name="tipo" required>
+                        <option value="MOTOCICLETA">Motocicleta</option>
+                        <option value="VEHICULO_LIGERO">Automóvil</option>
+                    </select>
+                </p>
+                <p><label>Es híbrido</label><br>
+                    <select name="hibrido" required>
+                        <option value="true">Sí</option>
+                        <option value="false">No</option>
+                    </select>
+                </p>
+                <p><label>Plaza Asignada</label><br>
+                    <select name="hibrido" required>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
 
-        <h2>Bienenido Juan Rodriguez </h2>
-        <form action="svRegistroVehiculo" method="POST">
-            <p>Ingresar vehiculo</p>
-            <p><label>Placa</label> <input name="placa"></p>
-            <p><label>Tipo de vehículo</label><br><select name="tipo" > 
-                    <option value="MOTOCICLETA">Motocicleta</option>
-                    <option value="VEHICULO_LIGERO">Automovil</option>   </select></p>
-            <p><label>Es hibrido</label><br><select name="hibrido" > 
-                    <option value="true">Si</option>
-                    <option value="false">No</option>   </select></p>
-            <p><label>Plaza Asignada</label> <input name="plaza" type="number"></p>
-            <h3>
-                <%= request.getAttribute("infomacion") != null ? request.getAttribute("infomacion") : ""%>
-            </h3>
+                    </select>
+                </p>
+                <h3>
+                    <%= request.getAttribute("infomacion") != null ? request.getAttribute("infomacion") : ""%>
+                </h3>
+                <input type="submit" value="Registrar" name="registro" class="registrar" />
+            </form>
+        </div>
 
-            <input type="submit" value="Registrar" name="registro" />
-        </form>
-        <h3>Que accion quiere hacer ?</h3>
 
         <div class="contenedor">
             <h1>Mostrar lista de reservas</h1>
@@ -100,24 +118,25 @@
                 <p><button type="submit" name="action" value="showList">Mostrar Lista</button></p>
             </form>
         </div> 
-        <div>
+        <div class="contenedor">
             <h1>Actualizar datos de los vehiculos </h1>
             <form action="editarReserva.jsp" method="POST">
 
 
-                <input type="submit" value="Actualizar" name="actualizar" />
+                <input type="submit" value="Actualizar" name="actualizar"  class="registrar"/>
 
 
             </form>
         </div>
-        <div> 
+        <div class="contenedor"> 
+            <h1>Sacar vehiculo del parquedero</h1>
             <!-- Añade esto en index.jsp -->
             <form action="sacarVehiculo.jsp" method="GET">
-                <button type="submit">Sacar Vehículo</button>
+                <button type="submit" class="verde">Sacar Vehículo</button>
             </form>
 
         </div>
-        <div>
+        <div class="contenedor">
             <p>Cerrar Operación</p>
             <!-- Añade esto en index.jsp -->
             <form action="cerrarParqueadero.jsp" method="GET">

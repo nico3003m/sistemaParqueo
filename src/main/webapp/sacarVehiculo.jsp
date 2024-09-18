@@ -9,11 +9,15 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="style.css">
     <title>Sacar Vehículo</title>
 </head>
 <body>
-    <h1>Sacar Vehículo</h1>
+    <h1 class="encabezado">Sacar Vehículo</h1>
 
+    <div class="contenedor">
+        
+   
     <% 
         
         List<Vehiculo> listaMotocicletas = (List<Vehiculo>) session.getAttribute("listaMotocicletas");
@@ -66,8 +70,10 @@
             </tbody>
         </table>
     </form>
-
+ </div>
+            
     <br>
-    <a href="index.jsp">Volver al Inicio</a>
+    <form action="index.jsp"><button >volver al inicio</button></form>
+    
 </body>
 </html>

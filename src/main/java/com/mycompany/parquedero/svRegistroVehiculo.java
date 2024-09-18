@@ -22,10 +22,10 @@ public class svRegistroVehiculo extends HttpServlet {
     private List<Vehiculo> motocicletas = new ArrayList<>();
     private List<Vehiculo> vehiculosLigeros = new ArrayList<>();
 
-    private  int plazasMotos = 6;
+    private int plazasMotos = 6;
     private int countPlazaMotos = 1;
     private int countplazasVehiculos = 1;
-    private  int plazasVehiculos = 5;
+    private int plazasVehiculos = 5;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -55,32 +55,38 @@ public class svRegistroVehiculo extends HttpServlet {
             throws ServletException, IOException {
         Parqueadero parqueadero = new Parqueadero();
         HttpSession session = request.getSession();
-        
-        String placa = request.getParameter("placa");
+
+        String placa = request.getParameter("placa") != null ? request.getParameter("placa").trim() : "";
+        placa = placa.toUpperCase();
         TipoVehiculo tipo = TipoVehiculo.valueOf(request.getParameter("tipo"));
         boolean esHibrido = Boolean.parseBoolean(request.getParameter("hibrido"));
         LocalDateTime ingreso = LocalDateTime.now();
-        int plazaAsignada = Integer.parseInt(request.getParameter("plaza"));
-        
-         if (placa.isEmpty()  || plazaAsignada < 1) {
-            // si algun dato viene vacio nosotros mostramos un mensaje que diga que ingrese todos los valores 
-            request.setAttribute("infomacion", "Ingrese toda la informacion");
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+        int plazaAsignada;
+        System.out.println("validacion de simpre mayusculas" + placa);
+        // Validar que la plaza asignada es un número
+        try {
+            plazaAsignada = Integer.parseInt(request.getParameter("plaza"));
+        } catch (NumberFormatException e) {
+            plazaAsignada = 0; // Asignar un valor por defecto si la conversión falla
         }
 
-        System.out.println("datos:" + ingreso );
+        if (placa.isEmpty() || plazaAsignada < 1) {
+            request.setAttribute("infomacion", "Ingrese toda la información");
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+            return; // Terminar el procesamiento aquí
+        }
+
         Vehiculo vehiculo = new Vehiculo(placa, tipo, esHibrido, ingreso, plazaAsignada);
 
         if (tipo == TipoVehiculo.MOTOCICLETA) {
             if (countPlazaMotos <= plazasMotos) {
                 countPlazaMotos += 1;
                 motocicletas.add(vehiculo);
-                System.out.println("moticicletas contador" + countPlazaMotos);
                 session.setAttribute("listaMotocicletas", motocicletas);
                 request.setAttribute("infomacion", "Ingresó correctamente la reserva");
                 request.getRequestDispatcher("index.jsp").forward(request, response);
+                return; // Terminar el procesamiento aquí
             }
-
         } else if (tipo == TipoVehiculo.VEHICULO_LIGERO) {
             if (countplazasVehiculos <= plazasVehiculos) {
                 countplazasVehiculos += 1;
@@ -88,11 +94,12 @@ public class svRegistroVehiculo extends HttpServlet {
                 session.setAttribute("vehiculosLigeros", vehiculosLigeros);
                 request.setAttribute("infomacion", "Ingreso correctamente la reserva");
                 request.getRequestDispatcher("index.jsp").forward(request, response);
+                return; // Terminar el procesamiento aquí
             }
         }
-        request.setAttribute("infomacion", "Plaza llena para :" + tipo);
-        request.getRequestDispatcher("index.jsp").forward(request, response);
 
+        request.setAttribute("infomacion", "Plaza llena para: " + tipo);
+        request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
 }
